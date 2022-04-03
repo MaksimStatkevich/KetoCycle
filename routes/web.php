@@ -18,3 +18,5 @@ Route::get('/', function () {
 });
 
 Route::resource('/measurements', \App\Http\Controllers\UserMeasurementsController::class);
+
+Route::get('/quiz', [\App\Http\Controllers\QuizController::class, 'index']);

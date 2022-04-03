@@ -12,24 +12,20 @@ class UserMeasurements implements UserMeasurementsRepositoryInterface
     private $field_identify = 'session_id';
     private $foreign_field = 'user_id';
 
-    public function createNewUser($data)
+    public function createNewUser($data) : void
     {
-        $user_session_id = Session::getId();
-        $name = 'user1'.time();
+        $user_identify = $this->getUserIdentify();
         $email = $data['email'];
-        $password = Hash::make(time());
 
         $user = new User;
         $user->fill([
-            'name' => $name,
+            'name' => $this->generateUserName(),
             'email' => $email,
-            'session_id' => $user_session_id,
-            'password' => $password,
+            'session_id' => $user_identify,
+            'password' => $this->generatePassword(),
         ]);
         $user->save();
         $user->userinform()->updateOrCreate(["{$this->foreign_field}" => $user->id], $data);
-
-        return $user->getAuthIdentifier();
     }
 
     public function updateUserInfo($request) : void
@@ -47,7 +43,22 @@ class UserMeasurements implements UserMeasurementsRepositoryInterface
 
     public function getUser()
     {
-        return User::where($this->field_identify, '=', Session::getId())->first();
+        return User::where($this->field_identify, '=', $this->getUserIdentify())->first();
+    }
+
+    public function getUserIdentify() : string
+    {
+        return Session::getId();
+    }
+
+    public function generateUserName() : string
+    {
+        return 'user'.time();
+    }
+
+    public function generatePassword() : string
+    {
+        return Hash::make(time());
     }
 
 }
