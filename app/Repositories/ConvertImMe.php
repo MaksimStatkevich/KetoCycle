@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 class ConvertImMe
 {
-    public function convert_to_inches($cm) {
+    public function convertToInches($cm) {
         $inches = round($cm * 0.393701);
         $result = [
             'ft' => intval($inches / 12),
@@ -14,18 +14,18 @@ class ConvertImMe
         return $result;
     }
 
-    public function convert_to_cm($feet, $inches = 0) {
+    public function convertToCm($feet, $inches = 0) {
         $inches = ($feet * 12) + $inches;
-        return (int) round($inches / 0.393701);
+        return round($inches / 0.393701);
     }
 
-    public function convert_lbs_to_kg($lbs)
+    public function convertLbsToKg($lbs)
     {
         $kg = 0.45; // 1lbs = 0.45 kg
         return round($lbs * $kg, 2); // returned KG
     }
 
-    public function convert_kg_to_lbs($kg)
+    public function convertKgToLbs($kg)
     {
         $lbs = 2.204; // 1kg = 2.204 lbs
         return round($kg * $lbs,2); // returned LBS

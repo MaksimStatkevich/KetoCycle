@@ -25,14 +25,13 @@ class UserMeasurementsPostForm extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required',
+            'email' => 'required|email',
+            'height' => 'numeric',
+            'weight' => 'numeric',
+            'age' => 'numeric',
+            'ft' => 'numeric',
+            'in' => 'numeric'
         ];
     }
 
-    public function messages() : array
-    {
-        return [
-            'email.required' => 'необходимо заполнить email',
-        ];
-    }
 }

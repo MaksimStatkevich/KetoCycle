@@ -6,7 +6,6 @@ namespace App\Repositories;
 use App\Models\Questions;
 use App\Models\UserQuizLog;
 use App\Repositories\Interfaces\UserMeasurementsRepositoryInterface;
-use Illuminate\Support\Facades\Session;
 
 class Quiz
 {

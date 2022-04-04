@@ -42,9 +42,7 @@ class UserMeasurementsController extends Controller
      */
     public function store(UserMeasurementsPostForm $request)
     {
-        $this->userMeasurementsRepository->updateUserInfo(
-            $request->all(['height', 'weight', 'email', 'age', 'sex', 'system_of_units'])
-        );
+        $this->userMeasurementsRepository->updateUser($request);
         return redirect()->route('measurements.index');
     }
 
