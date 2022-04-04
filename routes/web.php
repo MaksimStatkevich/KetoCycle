@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserMeasurementsController;
+use App\Http\Controllers\QuizController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +21,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/measurements', \App\Http\Controllers\UserMeasurementsController::class);
-
-Route::get('/quiz', [\App\Http\Controllers\QuizController::class, 'index']);
+Route::resource('/measurements', UserMeasurementsController::class);
+Route::get('/quiz', [QuizController::class, 'index']);

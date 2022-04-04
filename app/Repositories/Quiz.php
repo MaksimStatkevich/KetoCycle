@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-
 use App\Models\Questions;
 use App\Models\UserQuizLog;
 use App\Repositories\Interfaces\UserMeasurementsRepositoryInterface;
@@ -10,7 +9,6 @@ use App\Repositories\Interfaces\UserMeasurementsRepositoryInterface;
 class Quiz
 {
     private $userMeasurement;
-    private $user;
 
     public function __construct(UserMeasurementsRepositoryInterface $userMeasurement)
     {

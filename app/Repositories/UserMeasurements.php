@@ -45,7 +45,6 @@ class UserMeasurements implements UserMeasurementsRepositoryInterface
 
     public function updateUser(UserMeasurementsPostForm $request) : void
     {
-
         if($user = $this->getUser())
         {
             $user = $this->updateUserData($request, $user);
@@ -69,18 +68,20 @@ class UserMeasurements implements UserMeasurementsRepositoryInterface
         {
             if(isset($data['ft']) && isset($data['inc']))
             {
-                $sm = ConvertImMeService::convertToCm($data['ft'], $data['inc']);
-                $data['height'] = $sm;
-                unset($data['ft']);
-                unset($data['inc']);
+                $data['height'] = ConvertImMeService::convertToCm($data['ft'], $data['inc']);
+                unset($data['ft'], $data['inc']);
             }
-            
+
+            if(isset($data['weight']))
+            {
+                $data['weight'] = ConvertImMeService::convertLbsToKg($data['weight']); 
+            }     
         }
 
         return $data;
     }
 
-    public function getUser()
+    public function getUser() : User
     {
         return User::where(self::__FIELD_IDENTITY, '=', $this->getUserIdentify())->first();
     }

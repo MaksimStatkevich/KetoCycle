@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserMeasurementsPostForm;
 use App\Repositories\Interfaces\UserMeasurementsRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class UserMeasurementsController extends Controller
 {
