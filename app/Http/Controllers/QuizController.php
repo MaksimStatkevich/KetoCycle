@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Repositories\Quiz;
-use Illuminate\Http\Request;
+use App\Http\Requests\UserMeasurementsPostForm;
+use App\Services\Quiz;
 
 class QuizController extends Controller
 {
-    private $quiz;
+    public $quiz;
 
     public function __construct(Quiz $quiz)
     {
@@ -17,12 +16,13 @@ class QuizController extends Controller
 
     public function index()
     {
-        $questions = $this->quiz->getQuestions();
-        return view('quiz', ['questions' => $questions]);
+        return view('quiz');
     }
 
-    public function save(Request $request)
+    public function store(UserMeasurementsPostForm $request)
     {
-        $this->quiz->setUserQuizResult($request);
+        $this->quiz->updateUser($request);
+        return redirect()->route('quiz.index');
     }
+
 }

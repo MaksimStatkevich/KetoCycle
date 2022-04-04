@@ -9,5 +9,7 @@ class UserInform extends Model
 {
     use HasFactory;
     protected $table = 'user_inform';
+
     protected $fillable = [ 'age', 'height', 'weight', 'sex', 'system_of_units'];
+
 }

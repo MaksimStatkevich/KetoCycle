@@ -1,12 +1,11 @@
 <?php
-
 namespace App\Helpers;
 
 use App\Repositories\Interfaces\ConvertImMeInterface;
 
 class ConvertImMe implements ConvertImMeInterface
 {
-    public function convertToInches($cm) 
+    public function convertToInches($cm)
     {
         $inches = round($cm * 0.393701);
         $result = [
@@ -17,7 +16,7 @@ class ConvertImMe implements ConvertImMeInterface
         return $result;
     }
 
-    public function convertToCm($feet, $inches = 0) 
+    public function convertToCm($feet, $inches = 0)
     {
         $inches = ($feet * 12) + $inches;
         return round($inches / 0.393701);

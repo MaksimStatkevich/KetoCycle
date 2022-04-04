@@ -4,20 +4,20 @@ namespace App\Repositories;
 
 use App\Facades\ConvertImMeService;
 use App\Models\User;
-use App\Repositories\Interfaces\UserMeasurementsRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use App\Http\Requests\UserMeasurementsPostForm;
+use App\Repositories\Interfaces\UserMeasurementsRepositoryInterface;
 
 class UserMeasurements implements UserMeasurementsRepositoryInterface
 {
     const __FIELD_IDENTITY = 'session_id';
     const __FOREIGN_FIELD = 'user_id';
 
-    public function createNewUser(UserMeasurementsPostForm $request) : void
+
+    public function createNewUser($data): User
     {
         $user_identify = $this->getUserIdentify();
-        $email = $this->prepareUserData($request)['email'];
+        $email = $this->prepareUserData($data)['email'];
 
         $user = new User;
         $user->fill([
@@ -27,76 +27,64 @@ class UserMeasurements implements UserMeasurementsRepositoryInterface
             'password' => $this->generatePassword(),
         ]);
         $user->save();
-        $this->updateUserData($request, $user);
-    }
-
-    public function updateUserInfo(UserMeasurementsPostForm $request, User $user) : User
-    {
-        $user->fill($this->prepareUserData($request));
-        $user->save();
         return $user;
     }
 
-    public function updateUserData(UserMeasurementsPostForm $request, User $user) : User
+    public function updateUserData(User $user, $data) : bool
     {
-        $user->userinform()->updateOrCreate([self::__FOREIGN_FIELD => $user->id], $this->prepareUserInfo($request));
-        return $user;
+        return $user->fill($this->prepareUserData($data))->save();
     }
 
-    public function updateUser(UserMeasurementsPostForm $request) : void
+    public function updateUserInfo(User $user, $data) : bool
     {
-        if($user = $this->getUser())
+        return $user->userinform()->updateOrCreate([self::__FOREIGN_FIELD => $user->id], $data)->save();
+    }
+
+    public function prepareUserData($data): array
+    {
+        return $data;
+    }
+
+    public function prepareUserInfo($data): array
+    {
+        if (isset($data['system_of_units']) && (int)$data['system_of_units'] === 0) // if metric
         {
-            $user = $this->updateUserData($request, $user);
-            $this->updateUserInfo($request, $user);
-            
-        }else{
-            $this->createNewUser($request, $user);
-        }
-    }
-
-    public function prepareUserData(UserMeasurementsPostForm $request) : array
-    {
-        return $request->all(['email']);
-    }
-
-    public function prepareUserInfo(UserMeasurementsPostForm $request) : array
-    {
-        $data = $request->all(['height', 'weight', 'age', 'sex', 'system_of_units', 'ft', 'inc']);
-
-        if(isset($data['system_of_units']) && (int)$data['system_of_units'] === 0) // if metric
-        {
-            if(isset($data['ft']) && isset($data['inc']))
-            {
+            if (isset($data['ft']) && isset($data['inc'])) {
                 $data['height'] = ConvertImMeService::convertToCm($data['ft'], $data['inc']);
                 unset($data['ft'], $data['inc']);
             }
 
-            if(isset($data['weight']))
-            {
-                $data['weight'] = ConvertImMeService::convertLbsToKg($data['weight']); 
-            }     
+            if (isset($data['weight'])) {
+                $data['weight'] = ConvertImMeService::convertLbsToKg($data['weight']);
+            }
         }
 
         return $data;
     }
 
-    public function getUser() : User
+    public function getUser()
     {
         return User::where(self::__FIELD_IDENTITY, '=', $this->getUserIdentify())->first();
     }
 
-    public function getUserIdentify() : string
+    public function getUserInform()
+    {
+        return User::with('userinform')
+            ->where(self::__FIELD_IDENTITY, '=', $this->getUserIdentify())
+            ->first();
+    }
+
+    public function getUserIdentify(): string
     {
         return Session::getId();
     }
 
-    public function generateUserName() : string
+    public function generateUserName(): string
     {
-        return 'user'.time();
+        return 'user' . time();
     }
 
-    public function generatePassword() : string
+    public function generatePassword(): string
     {
         return Hash::make(time());
     }

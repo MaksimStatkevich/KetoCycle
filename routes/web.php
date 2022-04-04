@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserMeasurementsController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\KetoController;
 
 
 
@@ -18,8 +19,10 @@ use App\Http\Controllers\QuizController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+Route::resource('/quiz', QuizController::class);
+Route::get('/keto', [KetoController::class, 'index']);
 
-Route::resource('/measurements', UserMeasurementsController::class);
-Route::get('/quiz', [QuizController::class, 'index']);
+/*Route::resource('/measurements', UserMeasurementsController::class);
+Route::get('/quiz', [QuizController::class, 'index']);*/

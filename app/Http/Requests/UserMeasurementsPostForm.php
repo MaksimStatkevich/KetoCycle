@@ -26,11 +26,6 @@ class UserMeasurementsPostForm extends FormRequest
     {
         return [
             'email' => 'required|email',
-            'height' => 'numeric',
-            'weight' => 'numeric',
-            'age' => 'numeric',
-            'ft' => 'numeric',
-            'in' => 'numeric'
         ];
     }
 

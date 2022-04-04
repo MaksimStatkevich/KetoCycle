@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\Repositories\UserMeasurements;
 use App\Repositories\Interfaces\UserMeasurementsRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
-use App\Http\Requests\UserMeasurementsPostForm;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
