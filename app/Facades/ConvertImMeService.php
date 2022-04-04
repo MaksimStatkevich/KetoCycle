@@ -2,7 +2,7 @@
 
 namespace App\Facades;
 
-use App\Repositories\ConvertImMe;
+use App\Helpers\ConvertImMe;
 use Illuminate\Support\Facades\Facade;
 
 class ConvertImMeService extends Facade

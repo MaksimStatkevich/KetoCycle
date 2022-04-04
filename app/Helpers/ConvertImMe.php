@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Helpers;
 
-class ConvertImMe
+use App\Repositories\Interfaces\ConvertImMeInterface;
+
+class ConvertImMe implements ConvertImMeInterface
 {
     public function convertToInches($cm) {
         $inches = round($cm * 0.393701);
