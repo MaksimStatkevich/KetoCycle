@@ -9,9 +9,6 @@ use App\Repositories\Interfaces\UserMeasurementsRepositoryInterface;
 
 class UserMeasurements implements UserMeasurementsRepositoryInterface
 {
-    public const __FIELD_IDENTITY = 'session_id';
-    public const __FOREIGN_FIELD = 'user_id';
-
     public function createNewUser($data): User
     {
         $data = [
@@ -30,7 +27,7 @@ class UserMeasurements implements UserMeasurementsRepositoryInterface
 
     public function updateUserInfo(User $user, $data): bool
     {
-        return $user->userinform()->updateOrCreate([self::__FOREIGN_FIELD => $user->id], $data)->save();
+        return $user->information()->updateOrCreate(['user_id' => $user->id], $data)->save();
     }
 
     public function prepareUserData($data): array
@@ -57,14 +54,7 @@ class UserMeasurements implements UserMeasurementsRepositoryInterface
 
     public function getUser()
     {
-        return User::query()->where(self::__FIELD_IDENTITY, '=', $this->getUserIdentify())->first();
-    }
-
-    public function getUserInform()
-    {
-        return User::query()->with('userInform')
-            ->where(self::__FIELD_IDENTITY, '=', $this->getUserIdentify())
-            ->first();
+        return User::with('information')->where('session_id', $this->getUserIdentify())->first();
     }
 
     public function getUserIdentify(): string

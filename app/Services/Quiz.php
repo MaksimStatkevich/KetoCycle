@@ -19,7 +19,7 @@ class Quiz
     public function updateUser($request): JsonResponse
     {
         $user = $this->userMeasurements->getUser();
-        $user_info = $request->all(['height', 'weight', 'age', 'sex', 'system_of_units', 'ft', 'inc']);
+        $user_info = $request->all(['height', 'weight', 'age', 'system_of_units', 'ft', 'inc']);
         $user_data = $request->all(['email']);
         if (!$user) {
             $new_user = $this->userMeasurements->createNewUser($user_data);
@@ -37,14 +37,14 @@ class Quiz
         return Questions::with('answers')->get();
     }
 
-    public function saveQuestions($data)
+    public function saveQuestions($answers)
     {
         $user_id = $this->userMeasurements->getUser()->id;
-        return UserQuizLog::create([
-            'user_id' => $user_id,
-            'user_answers' => $data['user_answers']
-        ]);
 
+        return UserQuizLog::query()->create([
+            'user_id' => $user_id,
+            'answers' => $answers
+        ]);
     }
 
 }

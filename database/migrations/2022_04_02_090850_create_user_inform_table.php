@@ -13,15 +13,14 @@ class CreateUserInformTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_inform', function (Blueprint $table) {
+        Schema::create('information', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('age')->nullable()->comment('years')->default(0);
             $table->double('height')->nullable()->default(0)->comment('cm');
             $table->double('weight')->nullable()->default(0)->comment('kg');
-            $table->tinyInteger('sex')->nullable()->default(0)->comment('0 - men 1 - women');
-            $table->tinyInteger('system_of_units')->nullable()->default(0)->comment('0 - imperial 1 - metric');
+            $table->boolean('system_of_units')->nullable()->default(0)->comment('0 - imperial 1 - metric');
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ class CreateUserInformTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_inform');
+        Schema::dropIfExists('information');
     }
 }

@@ -15,7 +15,7 @@ class Keto
 
     public function getUserInformation()
     {
-        $userInform = $this->userMeasurements->getUserInform();
+        $userInform = $this->userMeasurements->getUser()->information;
 
         return $userInform->userInform ?? null;
 
