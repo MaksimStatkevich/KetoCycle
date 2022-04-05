@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\Interfaces\UserMeasurementsRepositoryInterface;
 use App\Models\Questions;
+use App\Models\UserQuizLog;
 
 class Quiz
 {
@@ -33,6 +34,16 @@ class Quiz
     public function getQuestions()
     {
         return Questions::with('answers')->get();
+    }
+
+    public function saveQuestions($data)
+    {
+        $user_id = $this->userMeasurements->getUser()->id;
+        return UserQuizLog::create([
+            'user_id' => $user_id,
+            'user_answers' => $data['user_answers']
+        ]);
+        
     }
 
 }

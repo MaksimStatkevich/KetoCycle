@@ -34,7 +34,8 @@ class QuizController extends Controller
             $data['user_answers'] = json_encode($data['testresult']);
         }
         $this->quiz->saveQuestions($data);
-        return redirect()->route('keto');
+        return response()
+            ->json(['save' => 'ok']);
     }
 
 }

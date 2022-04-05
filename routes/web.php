@@ -24,7 +24,7 @@ Route::get('/', function () {
 Route::resource('/quiz', QuizController::class);
 Route::post('quiz/savetest', [QuizController::class, 'saveTest']);
 
-Route::get('/keto', [KetoController::class, 'index']);
+Route::get('/keto', [KetoController::class, 'index'])->name('keto');
 
 /*Route::resource('/measurements', UserMeasurementsController::class);
 Route::get('/quiz', [QuizController::class, 'index']);*/

@@ -81,6 +81,7 @@ function sendresult()
     
     request.addEventListener("readystatechange", () => {
         if (request.readyState == 4 && request.status == 200){
+                location.href = '/keto';
 
         }else{
             console.log('error');
