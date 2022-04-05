@@ -43,8 +43,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function userInform(): HasOne
+    /**
+     * @return HasOne
+     */
+    public function information(): HasOne
     {
-        return $this->hasOne(UserInform::class);
+        return $this->hasOne(Information::class);
     }
 }
