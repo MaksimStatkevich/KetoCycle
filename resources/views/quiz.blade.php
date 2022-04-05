@@ -96,10 +96,11 @@
                                     {{ $question->question_text}}
                                 </h2>
 
-                                <div class="quiz__radio">
+                                <div class="quiz__radio" >
                                     @foreach($question->answers as $answers)
-                                    <input type="radio" name="answer[]" value="{{ $answers->id }}">
-                                        <div class="radio-button">
+                                    
+                                        <div class="radio-button" data-question = "{{ $question->id }}">
+                                        <input type="radio" class="d-none" name="answer[{{ $question->id }}]" value="{{ $answers->id }}">
                                             {{ $answers->text_answer }}
                                             <div class="status"></div>
                                             <div class="icon">-</div>

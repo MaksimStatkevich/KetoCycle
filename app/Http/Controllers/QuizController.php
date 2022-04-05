@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserMeasurementsPostForm;
 use App\Services\Quiz;
+use Illuminate\Http\Request;
 
 class QuizController extends Controller
 {
@@ -26,6 +27,14 @@ class QuizController extends Controller
         return redirect()->route('quiz.index');
     }
 
-
+    public function saveTest(Request $request)
+    {
+        $data = $request->all('sex', 'testresult');
+        if($data['testresult']){
+            $data['user_answers'] = json_encode($data['testresult']);
+        }
+        $this->quiz->saveQuestions($data);
+        return redirect()->route('keto');
+    }
 
 }

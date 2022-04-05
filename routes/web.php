@@ -22,6 +22,8 @@ Route::get('/', function () {
     return view('index');
 });
 Route::resource('/quiz', QuizController::class);
+Route::post('quiz/savetest', [QuizController::class, 'saveTest']);
+
 Route::get('/keto', [KetoController::class, 'index']);
 
 /*Route::resource('/measurements', UserMeasurementsController::class);

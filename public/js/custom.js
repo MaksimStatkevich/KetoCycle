@@ -41,19 +41,50 @@ form.addEventListener( 'submit', function(e){
 });
 
 const radio_btn = document.querySelectorAll('.radio-button');
+let user_result = {
+    sex: localStorage.getItem('sex'),
+    testresult:[
 
+    ]
+};
 radio_btn.forEach(item => {
     item.addEventListener('click', event => {
+        item.querySelector('input').checked = true;
+        user_result.testresult.push({'question': item.dataset.question, 'answer' : item.querySelector('input').value});
         item.classList.add("_active");
         setTimeout(function() { nextStep(); }, 100);
+        console.log(user_result);
     })
   })
 
 function nextStep()
 {
     var actve_step = document.getElementsByClassName('step active')[0];
-    var next_step = actve_step.nextElementSibling;
-    if(!next_step) return;
+    var next_satep = actve_step.nextElementSibling;
+    if(!next_satep){
+        sendresult();
+        return;
+    }
     actve_step.classList.remove("active");
-    next_step.classList.add("active");
+    next_satep.classList.add("active");
+}
+
+function sendresult()
+{
+    var request = new XMLHttpRequest();
+    const url = 'quiz/savetest'
+    request.open("POST", url, true);
+    request.responseType =	"json";
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.setRequestHeader("X-CSRF-TOKEN", document.querySelector('meta[name="csrf-token"]').content);
+    request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+    
+    request.addEventListener("readystatechange", () => {
+        if (request.readyState == 4 && request.status == 200){
+
+        }else{
+            console.log('error');
+        }
+    });
+    request.send(JSON.stringify(user_result));
 }

@@ -11,12 +11,12 @@
                 Select your gender:
               </span>
                     <div class="landing__buttons d-flex-md flex-column-md">
-                        <button class="btn female-btn ">
+                        <a id="woman" href="/quiz" onclick='localStorage.setItem("sex", 1)' class="btn female-btn ">
                             Women click here
-                        </button>
-                        <button class="btn male-btn ">
+</a>
+                        <a id="man" href="/quiz" onclick='localStorage.setItem("sex", 0)' class="btn male-btn ">
                             Men click here
-                        </button>
+</a>
                     </div>
 
                 </div>
