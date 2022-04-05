@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="quiz col-lg-12 mx-auto">
 
-                    <div id="step-1" class="step">
+                    <div id="step-0" class="step active">
                         <div class="quiz__main">
                             <div class="quiz__head">
                                 <span class="back-btn"></span>
@@ -24,6 +24,13 @@
                                 </div>
 
                             </div>
+                            
+                                <div id="errors" class="alert alert-danger showerrors">
+                                    <ul  class="">
+                                        
+                                    </ul>
+                                </div>
+                            
                             <div class="quiz__body">
                                 <h2 class="quiz__title">
                                     Measurements
@@ -71,7 +78,9 @@
                             </div>
                         </div>
                     </div>
-                    <div id="step-2" class="step">
+
+                    @foreach($questions_list as $index => $question)
+                    <div id='step-{{ $index + 1}} ' class="step">
                         <div class="quiz__main">
                             <div class="quiz__head">
                                 <span class="back-btn"></span>
@@ -84,69 +93,29 @@
                             </div>
                             <div class="quiz__body">
                                 <h2 class="quiz__title" style="margin-bottom: 24px; padding-top: 26px;">
-                                    How familiar are you with the Keto diet?
+                                    {{ $question->question_text}}
                                 </h2>
 
                                 <div class="quiz__radio">
-                                    <input type="hidden" name="answer" value="0">
-                                    <div class="radio-button">
-                                        Expert
-                                        <div class="status"></div>
-                                        <div class="icon">-</div>
-                                    </div>
-                                    <div class="radio-button _active">
-                                        I've heard a thing or two
-                                        <div class="status"></div>
-                                        <div class="icon">-</div>
-                                    </div>
-                                    <div class="radio-button">
-                                        Beginner
-                                        <div class="status"></div>
-                                        <div class="icon">-</div>
-                                    </div>
+                                    @foreach($question->answers as $answers)
+                                    <input type="radio" name="answer[]" value="{{ $answers->id }}">
+                                        <div class="radio-button">
+                                            {{ $answers->text_answer }}
+                                            <div class="status"></div>
+                                            <div class="icon">-</div>
+                                        </div>
+                                    @endforeach
+                                    
                                 </div>
 
                             </div>
                         </div>
                     </div>
-                    <div id="step-3" class="step">
-                        <div class="quiz__main">
-                            <div class="quiz__head">
-                                <span class="back-btn"></span>
-                                <div class="quiz__logo">
-                                    <picture><source srcset="/img/Logo.avif" type="image/avif"><source srcset="/img/Logo.webp" type="image/webp"><img src="/img/Logo.png" alt="" class="quiz__img"></picture>
-                                </div>
-                                <div class="progress" >
-                                    <div class="progress-bar" style="width: 100%" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="quiz__body">
-                                <h2 class="quiz__title" style="margin-bottom: 24px; padding-top: 26px;">
-                                    Our lifestyle also has a great impact on our metabolic age. Which of these statements best describes yours?
-                                </h2>
 
-                                <div class="quiz__radio">
-                                    <input type="hidden" name="answer" value="0">
-                                    <div class="radio-button">
-                                        I mostly eat well and stay active
-                                        <div class="status"></div>
-                                        <div class="icon">-</div>
-                                    </div>
-                                    <div class="radio-button _active">
-                                        I have some healthy habits, but I'm not perfect
-                                        <div class="status"></div>
-                                        <div class="icon">-</div>
-                                    </div>
-                                    <div class="radio-button">
-                                        My diet and activity levels could use some help
-                                        <div class="status"></div>
-                                        <div class="icon">-</div>
-                                    </div>
-                                </div>
+                    @endforeach
 
-                            </div>
-                        </div>
-                    </div>
+                    
+                
 
                 </div>
             </div>

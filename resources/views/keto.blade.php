@@ -22,7 +22,12 @@
           fill="#56468F"/>
     </svg>
     </span>
+                        @if($user_inform->sex === 0)
+                            Man
+                        @else
                             Woman
+                        @endif
+                            
                         </div>
 
 

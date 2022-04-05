@@ -16,7 +16,8 @@ class QuizController extends Controller
 
     public function index()
     {
-        return view('quiz');
+        $questions_list = $this->quiz->getQuestions();
+        return view('quiz', ['questions_list' => $questions_list]);
     }
 
     public function store(UserMeasurementsPostForm $request)
@@ -24,5 +25,7 @@ class QuizController extends Controller
         $this->quiz->updateUser($request);
         return redirect()->route('quiz.index');
     }
+
+
 
 }

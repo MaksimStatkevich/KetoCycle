@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\Interfaces\UserMeasurementsRepositoryInterface;
+use App\Models\Questions;
 
 class Quiz
 {
@@ -25,28 +26,13 @@ class Quiz
             $new_user =  $this->userMeasurements->createNewUser($user_data);
             $this->userMeasurements->updateUserInfo($new_user, $user_info);
         }
+        return response()->json(['status' => 'ok']);
     }
 
-
-
-    /*private $userMeasurement;
-
-    public function __construct(UserMeasurementsRepositoryInterface $userMeasurement)
-    {
-        $this->userMeasurement = $userMeasurement;
-    }
 
     public function getQuestions()
     {
         return Questions::with('answers')->get();
     }
 
-    public function setUserQuizResult($user_result)
-    {
-        $user_id = $this->userMeasurement->getUser()->id;
-        UserQuizLog::create([
-            'user_id' => $user_id,
-            'user_answers' => json_encode($user_result)
-        ]);
-    }*/
 }

@@ -1,0 +1,12 @@
+.step{
+   /* display: none;*/
+}
+.step.active{
+    display: block;
+}
+.showerrors{
+    display: none;
+}
+.showerrors.active{
+    display: block;
+}
