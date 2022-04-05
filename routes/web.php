@@ -21,7 +21,7 @@ use App\Http\Controllers\KetoController;
 Route::get('/', function () {
     return view('index');
 });
-Route::resource('/quiz', QuizController::class);
+Route::resource('/quiz', QuizController::class)->except('show');
 Route::post('quiz/savetest', [QuizController::class, 'saveTest']);
 
 Route::get('/keto', [KetoController::class, 'index'])->name('keto');

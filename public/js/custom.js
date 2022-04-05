@@ -42,7 +42,7 @@ form.addEventListener( 'submit', function(e){
 
 const radio_btn = document.querySelectorAll('.radio-button');
 let user_result = {
-    sex: localStorage.getItem('sex'),
+    //sex: localStorage.getItem('sex'),
     testresult:[
 
     ]
