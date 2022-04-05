@@ -4,38 +4,31 @@ namespace App\Repositories;
 
 use App\Facades\ConvertImMeService;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Repositories\Interfaces\UserMeasurementsRepositoryInterface;
 
 class UserMeasurements implements UserMeasurementsRepositoryInterface
 {
-    const __FIELD_IDENTITY = 'session_id';
-    const __FOREIGN_FIELD = 'user_id';
-
+    public const __FIELD_IDENTITY = 'session_id';
+    public const __FOREIGN_FIELD = 'user_id';
 
     public function createNewUser($data): User
     {
-        $user_identify = $this->getUserIdentify();
-        $email = $this->prepareUserData($data)['email'];
-
-        $user = new User;
-        $user->fill([
+        $data = [
             'name' => $this->generateUserName(),
-            'email' => $email,
-            'session_id' => $user_identify,
+            'email' => $this->prepareUserData($data)['email'],
+            'session_id' => $this->getUserIdentify(),
             'password' => $this->generatePassword(),
-        ]);
-        $user->save();
-        return $user;
+        ];
+        return User::create($data);
     }
 
-    public function updateUserData(User $user, $data) : bool
+    public function updateUserData(User $user, $data): bool
     {
         return $user->fill($this->prepareUserData($data))->save();
     }
 
-    public function updateUserInfo(User $user, $data) : bool
+    public function updateUserInfo(User $user, $data): bool
     {
         return $user->userinform()->updateOrCreate([self::__FOREIGN_FIELD => $user->id], $data)->save();
     }
@@ -47,9 +40,9 @@ class UserMeasurements implements UserMeasurementsRepositoryInterface
 
     public function prepareUserInfo($data): array
     {
-        if (isset($data['system_of_units']) && (int)$data['system_of_units'] === 0) // if metric
+        if (isset($data['system_of_units']) && (int)$data['system_of_units'] === 0)
         {
-            if (isset($data['ft']) && isset($data['inc'])) {
+            if (isset($data['ft'], $data['inc'])) {
                 $data['height'] = ConvertImMeService::convertToCm($data['ft'], $data['inc']);
                 unset($data['ft'], $data['inc']);
             }
@@ -64,12 +57,12 @@ class UserMeasurements implements UserMeasurementsRepositoryInterface
 
     public function getUser()
     {
-        return User::where(self::__FIELD_IDENTITY, '=', $this->getUserIdentify())->first();
+        return User::query()->where(self::__FIELD_IDENTITY, '=', $this->getUserIdentify())->first();
     }
 
     public function getUserInform()
     {
-        return User::with('userinform')
+        return User::query()->with('userInform')
             ->where(self::__FIELD_IDENTITY, '=', $this->getUserIdentify())
             ->first();
     }
@@ -86,7 +79,7 @@ class UserMeasurements implements UserMeasurementsRepositoryInterface
 
     public function generatePassword(): string
     {
-        return Hash::make(time());
+        return bcrypt(time());
     }
 
 }

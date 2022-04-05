@@ -15,15 +15,11 @@ class Keto
 
     public function getUserInformation()
     {
-        $userinform = $this->userMeasurements->getUserInform();
-        if(!$userinform)
-        {
-            return null;
-        }else{
+        $userInform = $this->userMeasurements->getUserInform();
 
-            return $userinform->userinform;
-        }
+        return $userInform->userInform ?? null;
+
     }
 
- 
+
 }

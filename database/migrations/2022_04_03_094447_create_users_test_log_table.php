@@ -16,7 +16,7 @@ class CreateUsersTestLogTable extends Migration
         Schema::create('users_test_log', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->json('user_answers')->comment('User Test Answers');
+            $table->json('answers')->comment('User Test Answers');
             $table->timestamps();
         });
     }

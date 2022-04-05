@@ -17,8 +17,8 @@ class QuizController extends Controller
 
     public function index()
     {
-        $questions_list = $this->quiz->getQuestions();
-        return view('quiz', ['questions_list' => $questions_list]);
+        $questionsList = $this->quiz->getQuestions();
+        return view('quiz', compact('questionsList'));
     }
 
     public function store(UserMeasurementsPostForm $request)

@@ -1,12 +1,15 @@
 .step{
    display: none;
 }
-.step.active{
+
+.step.active {
     display: block;
 }
-.showerrors{
+
+.errors {
     display: none;
 }
-.showerrors.active{
+
+.errors.active {
     display: block;
 }
