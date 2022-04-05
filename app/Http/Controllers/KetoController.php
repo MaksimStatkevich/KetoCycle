@@ -20,6 +20,7 @@ class KetoController extends Controller
     public function index()
     {
         $userInform = $this->keto->getUserInformation();
+        
         return view('keto', compact('userInform'));
     }
 }

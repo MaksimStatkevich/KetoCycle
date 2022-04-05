@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Questions;
+use App\Models\Question;
 use Illuminate\Database\Seeder;
 
 class QuestionsSeeder extends Seeder
@@ -14,7 +14,7 @@ class QuestionsSeeder extends Seeder
      */
     public function run()
     {
-        $insertMany = Questions::create(['question_text' => 'Text question 1']);
+        $insertMany = Question::create(['question_text' => 'Text question 1']);
         $insertMany->answers()->createMany([
             ['text_answer' => 'Answer 1'],
             ['text_answer' => 'Answer 2'],
@@ -23,7 +23,7 @@ class QuestionsSeeder extends Seeder
             ['text_answer' => 'Answer 5'],
         ]);
 
-        $insertMany = Questions::create(['question_text' => 'Text question 2']);
+        $insertMany = Question::create(['question_text' => 'Text question 2']);
         $insertMany->answers()->createMany([
             ['text_answer' => 'Answer 6'],
             ['text_answer' => 'Answer 7'],
@@ -32,7 +32,7 @@ class QuestionsSeeder extends Seeder
             ['text_answer' => 'Answer 10'],
         ]);
 
-        $insertMany = Questions::create(['question_text' => 'Text question 3']);
+        $insertMany = Question::create(['question_text' => 'Text question 3']);
         $insertMany->answers()->createMany([
             ['text_answer' => 'Answer 11'],
             ['text_answer' => 'Answer 12'],

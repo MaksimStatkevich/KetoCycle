@@ -20,6 +20,7 @@ class CreateUserInformTable extends Migration
             $table->integer('age')->nullable()->comment('years')->default(0);
             $table->double('height')->nullable()->default(0)->comment('cm');
             $table->double('weight')->nullable()->default(0)->comment('kg');
+            $table->boolean('sex')->nullable()->default(0)->comment('0 - Men 1 - Woman');
             $table->boolean('system_of_units')->nullable()->default(0)->comment('0 - imperial 1 - metric');
             $table->timestamps();
         });

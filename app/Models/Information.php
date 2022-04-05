@@ -16,6 +16,7 @@ class Information extends Model
         'user_id',
         'height',
         'weight',
+        'sex',
         'system_of_units'
     ];
 

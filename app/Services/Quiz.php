@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\UserQuizLog;
 use App\Repositories\Interfaces\UserMeasurementsRepositoryInterface;
-use App\Models\Questions;
+use App\Models\Question;
 use Illuminate\Http\JsonResponse;
 
 class Quiz
@@ -19,7 +19,7 @@ class Quiz
     public function updateUser($request): JsonResponse
     {
         $user = $this->userMeasurements->getUser();
-        $user_info = $request->all(['height', 'weight', 'age', 'system_of_units', 'ft', 'inc']);
+        $user_info = $request->all(['height', 'weight', 'age', 'sex', 'system_of_units', 'ft', 'inc']);
         $user_data = $request->all(['email']);
         if (!$user) {
             $new_user = $this->userMeasurements->createNewUser($user_data);
@@ -34,17 +34,17 @@ class Quiz
 
     public function getQuestions()
     {
-        return Questions::with('answers')->get();
+        return Question::with('answers')->get();
     }
 
-    public function saveQuestions($answers)
+    public function saveQuestions($data)
     {
         $user_id = $this->userMeasurements->getUser()->id;
-
-        return UserQuizLog::query()->create([
+        return UserQuizLog::create([
             'user_id' => $user_id,
-            'answers' => $answers
+            'answers' => $data['answers']
         ]);
+
     }
 
 }

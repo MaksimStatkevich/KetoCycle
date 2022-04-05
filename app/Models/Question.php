@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Questions extends Model
+class Question extends Model
 {
     use HasFactory;
 
+    protected $guarded = []; 
     public function answers(): HasMany
     {
-        return $this->hasMany(Answers::class);
+        return $this->hasMany(Answer::class);
     }
 }

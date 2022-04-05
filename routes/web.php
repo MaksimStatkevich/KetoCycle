@@ -23,8 +23,4 @@ Route::get('/', function () {
 });
 Route::resource('/quiz', QuizController::class)->except('show');
 Route::post('quiz/savetest', [QuizController::class, 'saveTest']);
-
 Route::get('/keto', [KetoController::class, 'index'])->name('keto');
-
-/*Route::resource('/measurements', UserMeasurementsController::class);
-Route::get('/quiz', [QuizController::class, 'index']);*/

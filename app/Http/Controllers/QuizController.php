@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserMeasurementsPostForm;
 use App\Services\Quiz;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller
@@ -28,17 +27,15 @@ class QuizController extends Controller
         return redirect()->route('quiz.index');
     }
 
-    /**
-     * @throws \JsonException
-     */
-    public function saveTest(Request $request): JsonResponse
-    {
-        $answers = '';
 
-        if ($request->has('testresult')) {
-            $answers = json_encode($request->testresult, JSON_THROW_ON_ERROR);
+    public function saveTest(Request $request)
+    {
+        $data = $request->all();
+        if($data['testresult']){
+            $data['answers'] = json_encode($data['testresult']);
         }
-        $this->quiz->saveQuestions($answers);
+        
+        $this->quiz->saveQuestions($data);
         return response()
             ->json(['save' => 'ok']);
     }

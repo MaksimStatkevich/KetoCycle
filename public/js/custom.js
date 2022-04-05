@@ -10,13 +10,13 @@ form.addEventListener( 'submit', function(e){
     request.setRequestHeader('Content-Type', 'application/json');
     request.setRequestHeader("X-CSRF-TOKEN", inputs['_token'].value);
     request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-
+    
     request.addEventListener("readystatechange", () => {
-        let obj = request;
+        let obj = request; 
         let html_error_container = document.querySelector('#errors');
         html_error_container.innerHTML = '';
-        if (request.readyState === 4 && request.status !== 200){
-            let errors = obj;
+        if (request.readyState == 4 && request.status != 200){
+            let errors = obj.response.errors;
             html_error_container.classList.add('active');
             for(var item in errors) {
                 let field_name = item;
@@ -24,7 +24,7 @@ form.addEventListener( 'submit', function(e){
                 html_error_container.innerHTML+= '<li>'+text_error+'</li>';
             }
 
-        }else if (request.readyState === 4 && request.status === 200){
+        }else if (request.readyState == 4 && request.status == 200){
             html_error_container.classList.remove('active');
             nextStep();
         }else{
@@ -36,7 +36,8 @@ form.addEventListener( 'submit', function(e){
         age: inputs['age'].value,
         height: inputs['height'].value,
         weight: inputs['weight'].value,
-        email: inputs['email'].value
+        email: inputs['email'].value,
+        sex: localStorage.getItem('sex')
     }));
 });
 
@@ -78,9 +79,9 @@ function sendresult()
     request.setRequestHeader('Content-Type', 'application/json');
     request.setRequestHeader("X-CSRF-TOKEN", document.querySelector('meta[name="csrf-token"]').content);
     request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-
+    
     request.addEventListener("readystatechange", () => {
-        if (request.readyState === 4 && request.status === 200){
+        if (request.readyState == 4 && request.status == 200){
                 location.href = '/keto';
 
         }else{
