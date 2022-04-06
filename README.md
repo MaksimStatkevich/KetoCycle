@@ -1,4 +1,5 @@
 ## install 
 - cp .env.example .env
+- alias sail='bash vendor/bin/sail'
 - sail up -d
-- php artisan migrate --seed
+- sail artisan migrate --seed
