@@ -11,10 +11,10 @@
                 Select your gender:
               </span>
                     <div class="landing__buttons d-flex-md flex-column-md">
-                        <a id="woman" href="/quiz" onclick='localStorage.setItem("sex", 1)' class="btn female-btn ">
+                        <a href="{{ route('quiz.index') }}" class="btn female-btn" data-sx="1">
                             Women click here
 </a>
-                        <a id="man" href="/quiz" onclick='localStorage.setItem("sex", 0)' class="btn male-btn ">
+                        <a href="{{ route('quiz.index') }}" class="btn male-btn" data-sx="0">
                             Men click here
 </a>
                     </div>

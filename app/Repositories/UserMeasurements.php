@@ -27,7 +27,7 @@ class UserMeasurements implements UserMeasurementsRepositoryInterface
 
     public function updateUserInfo(User $user, $data): bool
     {
-        return $user->information()->updateOrCreate(['user_id' => $user->id], $data)->save();
+        return $user->information()->updateOrCreate(['user_id' => $user->id], $this->prepareUserInfo($data))->save();
     }
 
     public function prepareUserData($data): array
@@ -43,7 +43,6 @@ class UserMeasurements implements UserMeasurementsRepositoryInterface
                 $data['height'] = ConvertImMeService::convertToCm($data['ft'], $data['inc']);
                 unset($data['ft'], $data['inc']);
             }
-
             if (isset($data['weight'])) {
                 $data['weight'] = ConvertImMeService::convertLbsToKg($data['weight']);
             }

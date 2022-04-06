@@ -7,7 +7,7 @@
 
         </div>
 
-        @if($userInform)
+        @if($userInformation)
             <div class="diet__stats">
                 <div class="container-xl">
 
@@ -22,7 +22,7 @@
           fill="#56468F"/>
     </svg>
     </span>
-                        @if($userInform->sex === 0)
+                        @if($userInformation->sex === 0)
                             Man
                         @else
                             Woman
@@ -32,38 +32,39 @@
 
 
                         <div class="diet__item">
-                            <span class="value">{{ $userInform->age }}</span>Age(real)
+                            <span class="value">{{ $userInformation->age }}</span>Age(real)
                         </div>
                         <div class="diet__item">
                             <span class="value meta">35</span>Age(metabolic)
                         </div>
 
-                        @if(isset($userInform->system_of_units) && $userInform->system_of_units === 0)
+                        @if(isset($userInformation->system_of_units) && $userInformation->system_of_units === 0)
 
                             <div class="diet__item">
                                 <span class="value">
-                                    {{ $userInform->height }}
+                                    {{ $userInformation->in }}/
+                                    {{ $userInformation->ft }}
                                 </span>
-                                Height(cm)
+                                Height(inc, feet)
                             </div>
 
                             <div class="diet__item">
                                 <span class="value">
-                                    {{ ConvertImMeService::convertLbsToKg($userInform->weight) }}
+                                {{ $userInformation->weight }}
                                 </span>
                                 Weight(lb)
                             </div>
                         @else
                             <div class="diet__item">
                                 <span class="value">
-                                    {{ $userInform->height }}
+                                    {{ $userInformation->height }}
                                 </span>
                                 Height(cm)
                             </div>
 
                             <div class="diet__item">
                                 <span class="value">
-                                    {{ $userInform->weight }}
+                                    {{ $userInformation->weight }}
                                 </span>
                                 Weight(kg)
                             </div>
@@ -80,6 +81,14 @@
             </div>
 
             </div>
+        @else
+        <div class="container-xl">
+        <div class="row align-items-center justify-content-center">
+        <h2 class="diet__title text-center">
+        No information. Go to homepage and select your gender 
+                    </h2>
+        </div>
+        </div>
         @endif
 
         <div class="diet__choose">

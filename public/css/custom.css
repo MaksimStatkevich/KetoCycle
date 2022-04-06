@@ -13,3 +13,35 @@
 .errors.active {
     display: block;
 }
+
+.ft-container, .mt-container{
+    position: relative;
+}
+.ft-label, .in-label{
+    color: #ff3464;
+    right: 35px;
+    position: absolute;
+    top: 15px;
+}
+
+.quiz-btn.active{
+    background: #ff3464;
+    border: none;
+    color: #fff;
+}
+.imperial{
+    display: none;
+}
+.lb-label{
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #ff3464;
+}
+.email-label{
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #ff3464;
+}
+

@@ -1,11 +1,12 @@
 @extends('layouts.base')
-
+@section('header')
+@endsection
 @section('content')
     <section class="quiz-form">
         <div class="container-lg">
             <div class="row">
                 <div class="quiz col-lg-12 mx-auto">
-                    <div id="step-0" class="step active">
+                    <div id="quiz-form-container" class="step active">
                         <div class="quiz__main">
                             <div class="quiz__head">
                                 <span class="back-btn"></span>
@@ -20,8 +21,8 @@
                                          aria-valuenow="33.3333" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <div class="quiz__metric d-flex ">
-                                    <button class="quiz-btn ">Imperial</button>
-                                    <button class="quiz-btn ">Metric</button>
+                                    <button class="quiz-btn" data-system="0">Imperial</button>
+                                    <button class="quiz-btn active" data-system="1">Metric</button>
                                 </div>
                             </div>
 
@@ -39,43 +40,47 @@
           </span>
                                 <form method="post" class="quiz__form" action="{{route('quiz.store')}}">
                                     @csrf
+                                    
+                                    <input type="hidden" name="sex" value="">
+                                    <input type="hidden" name="system_of_units" value="1">
+                                    <div class="metric-fields">
                                     <div class="form-group">
                                         <input class="form-field" type="number" id="age" name="age" placeholder="Age">
                                         <div class="age">years</div>
                                     </div>
-                                    <div class="metric-fields">
-                                        <div class="form-group">
-                                            <input class="form-field" type="number" id="metric-height" name="height"
+                                        <div class="form-group metric">
+                                            <input class="form-field" type="number" id="metric-height" name="height" value="0"
                                                    placeholder="Height">
                                             <div class="height">cm</div>
                                         </div>
+
+                                        
                                         <div class="form-group imperial" style="display:none;">
                                             <div class="row">
-                                                <div class="col-xs-6">
-                                                    <input class="form-field" type="number" id="feet" name="feet"
+                                                <div class="col-md-6 col-xs-6 ft-container">
+                                                    <input class="form-field" type="number" id="feet" name="ft"
                                                            placeholder="Ft">
-                                                    <div class="height">Ft</div>
+                                                    <div class="ft-label">Ft</div>
                                                 </div>
-                                                <div class="col-xs-6">
-                                                    <input class="form-field" type="number" id="inch" name="inch"
+                                                <div class="col-md-6 col-xs-6 mt-container">
+                                                    <input class="form-field" type="number" id="inch" name="inc"
                                                            placeholder="In">
-                                                    <div class="height">In</div>
+                                                    <div class="in-label">In</div>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="form-group">
                                             <input class="form-field" type="number" id="metric-weight" name="weight"
                                                    placeholder="Weight">
-                                            <div class="weight">kg</div>
-                                        </div>
-                                        <div class="form-group" style="display: none;">
-                                            <input class="form-field" type="number" id="imperial-weight" name="lb"
-                                                   placeholder="Weight">
-                                            <div class="weight">lb</div>
+                                                   
+                                            <div class="lb-label metric">kg</div>
+                                            <div class="lb-label imperial">lb</div>
                                         </div>
                                         <div class="form-group">
                                             <input class="form-field" type="email" id="email" name="email"
                                                    placeholder="Email Address">
+                                                   <div class="email-label">email</div>
                                         </div>
                                     </div>
                                     <button class="next-btn">Next</button>
@@ -107,9 +112,7 @@
 
                                     <div class="quiz__radio">
                                         @foreach($question->answers as $answers)
-                                           
-                                            <div class="radio-button" data-question="{{ $question->id }}">
-                                            <input type="radio" name="answer[]"  class="d-none" value="{{ $answers->id }}">
+                                            <div class="radio-button" data-question="{{ $question->id }}" data-answer="{{ $answers->id }}">
                                                 {{ $answers->text_answer }}
                                                 <div class="status"></div>
                                                 <div class="icon">-</div>
@@ -125,3 +128,8 @@
         </div>
     </section>
 @endsection
+@push('child-scripts')
+<script type="text/javascript">
+    $('input[name="sex"]').val(localStorage.getItem("sex"));
+</script>
+@endpush
